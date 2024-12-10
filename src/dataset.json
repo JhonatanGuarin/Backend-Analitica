@@ -1,0 +1,86 @@
+[
+    {
+        "input": "Cuántas víctimas totales tiene Antioquia?",
+        "output": [{"$match": {"DEPARTAMENTO_HECHO": "Antioquia"}}, {"$group": {"_id": null, "total": {"$sum": "$TOTAL_VÍCTIMAS"}}}]
+    },
+    {
+        "input": "Lista los delitos cometidos en Yarumal en 2019.",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "YARUMAL", "AÑO_HECHOS": 2019}}, {"$project": {"DELITO": 1, "_id": 0}}]
+    },
+    {
+        "input": "Cuántos casos activos hay en Colombia bajo la Ley 906?",
+        "output": [{"$match": {"ESTADO": "ACTIVO", "LEY": "Ley 906"}}, {"$count": "total"}]
+    },
+    {
+        "input": "Cuántas víctimas hay que sean niños o niñas?",
+        "output": [{"$match": {"GRUPO_ETARIO": "Niño, Niña. Población de 0 a 13 años."}}, {"$group": {"_id": null, "total": {"$sum": "$TOTAL_VÍCTIMAS"}}}]
+    },
+    {
+        "input": "Qué delitos sexuales se cometieron en Antioquia?",
+        "output": [{"$match": {"DEPARTAMENTO_HECHO": "Antioquia", "GRUPO_DELITO": "DELITOS SEXUALES"}}, {"$project": {"DELITO": 1, "_id": 0}}]
+    },
+    {
+        "input": "Cuántos casos se iniciaron en 2019 en Colombia?",
+        "output": [{"$match": {"AÑO_ENTRADA": 2019}}, {"$count": "total"}]
+    },
+    {
+        "input": "Lista los casos archivados en Antioquia.",
+        "output": [{"$match": {"DEPARTAMENTO_HECHO": "Antioquia", "ES_ARCHIVO": "SI"}}, {"$project": {"DELITO": 1, "_id": 0}}]
+    },
+    {
+        "input": "Cuántas víctimas femeninas hay en el municipio de Yarumal?",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "YARUMAL", "SEXO": "FEMENINO"}}, {"$group": {"_id": null, "total": {"$sum": "$TOTAL_VÍCTIMAS"}}}]
+    },
+    {
+        "input": "Cuántos casos hay en la etapa de indagación?",
+        "output": [{"$match": {"ETAPA_CASO": "INDAGACIÓN"}}, {"$count": "total"}]
+    },
+    {
+        "input": "Lista las seccionales en Colombia donde se registraron casos en 2019.",
+        "output": [{"$match": {"AÑO_HECHOS": 2019}}, {"$group": {"_id": "$SECCIONAL"}}, {"$project": {"seccional": "$_id", "_id": 0}}]
+    },
+    {
+        "input": "Cuántas víctimas hay en el departamento de Cauca?",
+        "output": [{"$match": {"DEPARTAMENTO_HECHO": "Cauca"}}, {"$group": {"_id": null, "total": {"$sum": "$TOTAL_VÍCTIMAS"}}}]
+    },
+    {
+        "input": "Qué delitos ocurrieron en Popayán en 2020?",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "POPAYÁN", "AÑO_HECHOS": 2020}}, {"$project": {"DELITO": 1, "_id": 0}}]
+    },
+    {
+        "input": "Cuántos casos activos hay en Bogotá bajo la Ley 906?",
+        "output": [{"$match": {"ESTADO": "ACTIVO", "LEY": "Ley 906", "DEPARTAMENTO_HECHO": "BOGOTÁ, D. C."}}, {"$count": "total"}]
+    },
+    {
+        "input": "Cuántas víctimas adolescentes hay en el municipio de Cali?",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "CALI", "GRUPO_ETARIO": "Adolescente. Población de 14 a 17 años."}}, {"$group": {"_id": null, "total": {"$sum": "$TOTAL_VÍCTIMAS"}}}]
+    },
+    {
+        "input": "Cuántos casos archivados hubo en Medellín en 2021?",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "MEDELLÍN", "ES_ARCHIVO": "SI", "AÑO_HECHOS": 2021}}, {"$count": "total"}]
+    },
+    {
+        "input": "Cuántas víctimas masculinas hay en Bucaramanga?",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "BUCARAMANGA", "SEXO": "MASCULINO"}}, {"$group": {"_id": null, "total": {"$sum": "$TOTAL_VÍCTIMAS"}}}]
+    },
+    {
+        "input": "Cuántos casos de homicidio ocurrieron en Cartagena en 2018?",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "CARTAGENA", "DELITO": "HOMICIDIO", "AÑO_HECHOS": 2018}}, {"$count": "total"}]
+    },
+    {
+        "input": "Lista los años en los que ocurrieron casos en Cali.",
+        "output": [{"$match": {"MUNICIPIO_HECHO": "CALI"}}, {"$group": {"_id": "$AÑO_HECHOS"}}, {"$project": {"año": "$_id", "_id": 0}}]
+    },
+    {
+        "input": "Cuántas víctimas adultas mayores hay en el departamento de Atlántico?",
+        "output": [{"$match": {"DEPARTAMENTO_HECHO": "Atlántico", "GRUPO_ETARIO": "Adulto mayor. Población de 60 años en adelante."}}, {"$group": {"_id": null, "total": {"$sum": "$TOTAL_VÍCTIMAS"}}}]
+    },
+    {
+        "input": "Qué etapas procesales hay en los casos del departamento del Valle del Cauca?",
+        "output": [{"$match": {"DEPARTAMENTO_HECHO": "Valle del Cauca"}}, {"$group": {"_id": "$ETAPA_CASO"}}, {"$project": {"etapa": "$_id", "_id": 0}}]
+    },
+    {
+        "input": "Lista los municipios con más de 10 víctimas en 2021.",
+        "output": [{"$match": {"AÑO_HECHOS": 2021}}, {"$group": {"_id": "$MUNICIPIO_HECHO", "total_victimas": {"$sum": "$TOTAL_VÍCTIMAS"}}}, {"$match": {"total_victimas": {"$gt": 10}}}, {"$project": {"municipio": "$_id", "_id": 0}}]
+    }
+]
